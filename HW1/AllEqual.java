@@ -10,6 +10,5 @@ public class AllEqual {
         else {
             System.out.println("not all equal");
         }
-
     }
 }

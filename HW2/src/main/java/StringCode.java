@@ -1,4 +1,6 @@
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 // CS108 HW1 -- String static methods
@@ -12,7 +14,19 @@ public class StringCode {
 	 * @return max run length
 	 */
 	public static int maxRun(String str) {
-		return 0; // YOUR CODE HERE
+        if (str.isEmpty()) return 0;
+
+        int ans = 1, count = 1;
+        for (int i = 1; i < str.length(); i++) {
+            if (str.charAt(i) == str.charAt(i - 1)) {
+                count++;
+            } else {
+                count = 1;
+            }
+            ans = Math.max(ans, count);
+        }
+
+        return ans;
 	}
 
 	
@@ -24,7 +38,21 @@ public class StringCode {
 	 * @return blown up string
 	 */
 	public static String blowup(String str) {
-		return null; // YOUR CODE HERE
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (Character.isDigit(c)) {
+                int num = c - '0';
+                if (i + 1 < str.length()) {
+                    for (int j = 0; j < num; j++) {
+                        sb.append(str.charAt(i + 1));
+                    }
+                }
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
 	}
 	
 	/**
@@ -34,6 +62,22 @@ public class StringCode {
 	 * Compute this in linear time using a HashSet. Len will be 1 or more.
 	 */
 	public static boolean stringIntersect(String a, String b, int len) {
-		return false; // YOUR CODE HERE
+        if (len <= 0 || a.length() < len || b.length() < len) {
+            return false;
+        }
+
+        HashSet<String> set = new HashSet<>();
+
+        for (int i = 0; i <= a.length() - len; i++) {
+            set.add(a.substring(i, i + len));
+        }
+
+        for (int i = 0; i <= b.length() - len; i++) {
+            if (set.contains(b.substring(i, i + len))) {
+                return true;
+            }
+        }
+
+        return false;
 	}
 }
